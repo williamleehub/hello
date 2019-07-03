@@ -1,0 +1,60 @@
+# /etc/csh.cshrc: system-wide .cshrc file for csh(1) and tcsh(1)
+
+
+
+# Colors!
+set     red="%{\033[1;31m%}"
+set   green="%{\033[0;32m%}"
+set  hg="%{\033[1;32m%}"
+set  yellow="%{\033[1;33m%}"
+set    blue="%{\033[1;34m%}"
+set magenta="%{\033[1;35m%}"
+set    cyan="%{\033[1;36m%}"
+set   white="%{\033[0;37m%}"
+set     end="%{\033[0m%}" # This is needed at the end.
+set	td="%w-%D"
+
+
+alias h 	history 25
+alias cls	clear
+alias rm	rm -rf
+alias del	rm -rf
+alias cp	cp -r
+alias ll	ls -lhF
+alias la	ls -lhaF
+alias she	echo '$SHELL'
+alias vi	vim
+alias pacs	pacman -S
+
+
+# A righteous umask
+umask 22
+set path = (/sbin /bin /usr/bin /usr/sbin /usr/local/sbin /usr/local/bin $HOME/bin)
+
+setenv EDITOR vim
+setenv PAGER less
+setenv BLOCKZIZE K
+
+if ($?prompt) then
+	#set prompt="\n Hello :) ${green}%n ${green}@ %m ${cyan}%~ ${white} \n> ${end}"
+	set prompt="\n ${blue}[${yellow}%N ${green}@ ${red}%m ${magenta}in ${cyan}%~ ${blue}] ${hg} ${td}  %d  %t \n${white}%#${white} ${end}"
+	set promptchars = "%#"
+	set filec
+	set history = 1000
+	set savehist = (1000 merge)
+	
+	set filec
+	set history = 1000
+	set savehist = (1000 merge)
+	set autolist = ambiguous
+
+	# use history to aid expasnsion
+	set autoexpand
+	set autorehash
+	if ( $?tcsh ) then
+		bindkey "^W" backward-delete-word
+		bindkey -k up history-search-backward
+		bindkey -k down history-search-forward
+	endif
+
+endif
